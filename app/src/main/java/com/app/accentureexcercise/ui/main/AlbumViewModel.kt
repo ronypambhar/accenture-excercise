@@ -1,7 +1,6 @@
 package com.app.accentureexcercise.ui.main
 
 import android.app.Activity
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.app.accentureexcercise.R
@@ -36,13 +35,12 @@ class AlbumViewModel(val activity: Activity, val disposable: CompositeDisposable
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe({
-                            Log.e("***", "Success: $it")
                             it.forEach { model ->
                                 MyApp.getInstance().getDao().insertAlbum(model)
                             }
                             alAlbums = MyApp.getInstance().getDao().getAlbums()
                         }, {
-                            Log.e("***", "Error: ${it.printStackTrace()}")
+                            it.printStackTrace()
                         })
                 )
             } else {
